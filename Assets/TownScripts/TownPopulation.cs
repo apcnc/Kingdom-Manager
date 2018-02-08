@@ -12,6 +12,7 @@ public class TownPopulation{
 		this.upperClass = upperClass;
 	}
 
+	//getter + setter
 	public int getLowerClass(){
 		return lowerClass;
 	}
@@ -40,15 +41,19 @@ public class TownPopulation{
 		this.upperClass = upperClass;
 	}
 
+
+
+	//Interactive Methods
 	public void populationDecline(string reason){
 		switch (reason) {
 		case "food":
-			lowerClass = (int)lowerClass * 0.9;
+			lowerClass = (int)(lowerClass * 0.9);
 			break;
+
 		case "wood":
 			if (middleClass > 0) {
-				lowerClass += (int)middleClass * 0.4;
-				middleClass -= (int)middleClass * 0.4;
+				lowerClass += (int)(middleClass * 0.4)+1;
+				middleClass -= (int)(middleClass * 0.4)+1;
 			}
 			break;
 		default:

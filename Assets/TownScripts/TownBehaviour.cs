@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class TownBehaviour : MonoBehaviour {
-	TownRessources ressources = new TownRessources ();
-	TownPopulation population = new TownPopulation (50,10,2);
+	TownRessources ressources = new TownRessources (5,2,1,1);
+	TownPopulation population = new TownPopulation (500,100,2);
+	public string townname = "One";
+
 	// Use this for initialization
 	void Start () {
 		StartCoroutine (usingRessources ());
@@ -14,19 +16,38 @@ public class TownBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		print(ressources.getWood() + " " +ressources.getStone()+ " " +ressources.getMetal());
+		print(ressources.getFood() + " " + ressources.getWood() + " " +ressources.getStone()+ " " +ressources.getMetal());
 		print(population.getLowerClass() + " " + population.getMiddleClass() + " " + population.getUpperClass() + " " +population.getTotalPopulation());
 	}
 
 	IEnumerator usingRessources(){
 		while (true) {
-			string reason = ressources.useRessources (.1, .01, .01);
+			string reason = ressources.useRessources (population);
 			if (reason.Equals ("")) {
 			} else {
 				population.populationDecline (reason);
 			}
+			updateGUI ();
 				
 			yield return new WaitForSeconds (5.0f);
 		}
+	}
+
+	void OnMouseDown(){
+		print ("mouse hit village");
+		if (gameObject.transform.FindChild ("Canvas").gameObject.activeSelf) {
+			gameObject.transform.FindChild ("Canvas").gameObject.SetActive (false);
+		} else {gameObject.transform.FindChild ("Canvas").gameObject.SetActive (true);
+		}
+	}
+
+	void updateGUI(){
+		gameObject.transform.FindChild ("Canvas").FindChild("Townname").GetComponent<Text>().text = townname;
+		gameObject.transform.FindChild ("Canvas").FindChild("Food").GetComponent<Text>().text = "Food: " + ressources.getFood();
+		gameObject.transform.FindChild ("Canvas").FindChild("Wood").GetComponent<Text>().text = "Wood: " + ressources.getWood();
+		gameObject.transform.FindChild ("Canvas").FindChild("Stone").GetComponent<Text>().text = "Stone: " + ressources.getStone();
+		gameObject.transform.FindChild ("Canvas").FindChild("Metal").GetComponent<Text>().text = "Metal: " + ressources.getMetal();
+		gameObject.transform.FindChild ("Canvas").FindChild("Population").GetComponent<Text>().text = "Population: " + population.getLowerClass() + "/" + population.getMiddleClass() + "/" + population.getUpperClass() + "(" + population.getTotalPopulation() + ")";
+
 	}
 }
