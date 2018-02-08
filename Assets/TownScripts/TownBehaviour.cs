@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TownBehaviour : MonoBehaviour {
-	TownRessources ressources = new TownRessources (5,2,1,1);
-	TownPopulation population = new TownPopulation (500,100,2);
+	public TownRessources ressources = new TownRessources (5,2,1,1);
+	public TownPopulation population = new TownPopulation (500,100,2);
 	public string townname = "One";
 
 	// Use this for initialization
@@ -28,12 +28,12 @@ public class TownBehaviour : MonoBehaviour {
 				population.populationDecline (reason);
 			}
 			updateGUI ();
-				
 			yield return new WaitForSeconds (5.0f);
 		}
 	}
 
 	void OnMouseDown(){
+		disableAllTownCanvases ();
 		print ("mouse hit village");
 		if (gameObject.transform.FindChild ("Canvas").gameObject.activeSelf) {
 			gameObject.transform.FindChild ("Canvas").gameObject.SetActive (false);
@@ -49,5 +49,15 @@ public class TownBehaviour : MonoBehaviour {
 		gameObject.transform.FindChild ("Canvas").FindChild("Metal").GetComponent<Text>().text = "Metal: " + ressources.getMetal();
 		gameObject.transform.FindChild ("Canvas").FindChild("Population").GetComponent<Text>().text = "Population: " + population.getLowerClass() + "/" + population.getMiddleClass() + "/" + population.getUpperClass() + "(" + population.getTotalPopulation() + ")";
 
+	}
+
+	public void disableAllTownCanvases(){
+		Canvas[] villageCanvases;
+		villageCanvases = gameObject.transform.parent.GetComponentsInChildren<Canvas> ();
+		foreach (Canvas canvas in villageCanvases) {
+			if (canvas.tag != "MainOverlay") {
+				canvas.gameObject.SetActive (false);
+			}
+		}
 	}
 }
