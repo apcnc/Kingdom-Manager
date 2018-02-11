@@ -17,7 +17,6 @@
     <Ressource>
       <name>Wood</name>
       <production>1</production>
-	  
 	  <productionLVL>1</productionLVL>
 	  <usage>1</usage>
       <LVL1ressource>Wood</LVL1ressource>

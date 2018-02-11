@@ -17,9 +17,9 @@ public class RessourceContainer{
 		}
 	}
 
-	public static RessourceContainer Load(){
+	public static RessourceContainer Load(string filename){
 		XmlSerializer serializer = new XmlSerializer (typeof(RessourceContainer));
-		using (FileStream stream = new FileStream ("Test.xml", FileMode.Open)) {
+		using (FileStream stream = new FileStream (filename, FileMode.Open)) {
 			return serializer.Deserialize (stream) as RessourceContainer;
 		}
 	}

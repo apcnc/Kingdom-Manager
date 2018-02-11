@@ -21,6 +21,7 @@ public class TerrainBehavior : MonoBehaviour {
 	}
 
 	IEnumerator updateMainOverlay(){
+		yield return new WaitForSeconds (0.2f);
 		while (true) {
 			
 			int totalLCPop = 0;

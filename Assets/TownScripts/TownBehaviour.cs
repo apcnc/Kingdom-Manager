@@ -4,19 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TownBehaviour : MonoBehaviour {
-	public TownRessources ressources = new TownRessources (5,2,1,1);
+	public TownRessources ressources;
 	public TownRessourceBuildings building = new TownRessourceBuildings (3,3,4);
 	public TownPopulation population = new TownPopulation (500,100,2);
 	public string townname = "One";
 	// Use this for initialization
 	void Start () {
+		ressources = new TownRessources (gameObject.name + ".xml");
 		StartCoroutine (usingAndProducingRessources ());
 		disableAllTownCanvases ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		print(ressources.getRessource("Food").amount + " " + ressources.getRessource("Wood").amount);
+		print(ressources.getRessource("Food").productionLVL + " " + ressources.getRessource("Wood").productionLVL);
 		print(population.getLowerClass() + " " + population.getMiddleClass() + " " + population.getUpperClass() + " " +population.getTotalPopulation());
 	}
 
@@ -101,5 +102,38 @@ public class TownBehaviour : MonoBehaviour {
 
 	public void LVLUpProduction(string name){
 		print (name);
+		name = name.Replace ("LVLUp","");
+		bool canLVL = true;
+		string[] ressourceNames = null;
+		string[] neededRessourceAmount = null;
+		Ressource ressource = ressources.getRessource (name);
+		switch (ressource.productionLVL+1){
+		case 1: 
+			ressourceNames = ressource.LVL1ressource.Split ('/');
+			neededRessourceAmount = ressource.LVL1requierments.Split ('/');
+			break;
+		case 2: 
+			ressourceNames = ressource.LVL2ressource.Split ('/');
+			neededRessourceAmount = ressource.LVL2requierments.Split ('/');
+			break;
+		case 3: 
+			ressourceNames = ressource.LVL3ressource.Split ('/');
+			neededRessourceAmount = ressource.LVL3requierments.Split ('/');
+			break;
+		}
+
+		for(int i = 0;i<ressourceNames.Length;i++) {
+			if (System.Int32.Parse(neededRessourceAmount [i]) > ressources.getRessource (ressourceNames[i]).amount) {
+				canLVL = false;
+			}
+		}
+		if (canLVL) {
+			for(int i = 0;i<ressourceNames.Length;i++) {
+				ressources.addRessource (ressourceNames [i], -System.Int32.Parse (neededRessourceAmount [i]));
+			
+			}
+			ressources.addProductionLVL (name);
+		}
+
 	}
 }

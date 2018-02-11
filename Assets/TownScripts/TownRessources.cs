@@ -3,23 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TownRessources{
-	private double food;
-	private double wood;
-	private double stone;
-	private double metal;
 	public Ressource[] resource;
 	public double foodusage;
 	public double woodusage;
 	public double stoneusage;
 	public double metalusage;
-	public TownRessources(double food = 0, double wood = 0, double stone = 0, double metal = 0){
-		RessourceContainer ressources = RessourceContainer.Load ();
+	public TownRessources(string filename){
+		RessourceContainer ressources = RessourceContainer.Load (filename);
 		resource = ressources.ressources;
 
-		this.food = food;
-		this.wood = wood;
-		this.stone = stone;
-		this.metal = metal;
 	}
 
 	//getter + setter
@@ -36,6 +28,14 @@ public class TownRessources{
 		foreach (Ressource ressource in resource) {
 			if (ressource.name.Equals (name)) {
 				ressource.amount += amount;
+			}
+		}
+	}
+
+	public void addProductionLVL(string name)  {
+		foreach (Ressource ressource in resource) {
+			if (ressource.name.Equals (name)) {
+				ressource.productionLVL++;
 			}
 		}
 	}
