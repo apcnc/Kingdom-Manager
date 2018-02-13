@@ -50,13 +50,13 @@ public class TownRessources{
 			if (ressource.name.Equals ("Food")) {
 				ressource.usage = population.getTotalPopulation () * 0.001;
 			} else {
-				ressource.usage = woodusage = population.getLowerClass () * 0.0001 + population.getMiddleClass () * 0.001 + population.getUpperClass () * 0.01;
+				ressource.usage = population.getLowerClass () * 0.0001 + population.getMiddleClass () * 0.001 + population.getUpperClass () * 0.01;
 			}
 			if (ressource.usage < ressource.amount) {
 				ressource.amount -= ressource.usage;
 			} else {
 				ressource.amount = 0;
-				ressourceShortages += ressource.name;
+				ressourceShortages += "/" + ressource.shortageSeverity;
 			}
 		}
 		return ressourceShortages;

@@ -11,6 +11,7 @@ public class Ressource{
 	public double production;
 	public int productionLVL;
 	public double usage;
+	public int shortageSeverity;
 
 	public string LVL1ressource;
 	public string LVL1requierments;

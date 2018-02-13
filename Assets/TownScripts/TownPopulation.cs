@@ -44,20 +44,24 @@ public class TownPopulation{
 
 
 	//Interactive Methods
-	public void populationDecline(string reason){
-		switch (reason) {
-		case "food":
-			lowerClass = (int)(lowerClass * 0.9);
-			break;
+	public void populationDecline(string reasons){
+		reasons = reasons.Substring (1);
+		string[] reasonarray = reasons.Split ('/');
+		foreach (string reason in reasonarray) {
+			switch (reason) {
+			case "0":
+				lowerClass = (int)(lowerClass * 0.9);
+				break;
 
-		case "wood":
-			if (middleClass > 0) {
-				lowerClass += (int)(middleClass * 0.4)+1;
-				middleClass -= (int)(middleClass * 0.4)+1;
+			case "1":
+				if (middleClass > 0) {
+					lowerClass += (int)(middleClass * 0.4) + 1;
+					middleClass -= (int)(middleClass * 0.4) + 1;
+				}
+				break;
+			default:
+				break;
 			}
-			break;
-		default:
-			break;
 		}
 	}
 }

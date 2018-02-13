@@ -4,30 +4,30 @@
     <Ressource>
       <name>Food</name>
       <production>-1</production>
-      <productionLVL>1</productionLVL>
-      <usage>1</usage>
-      <shortageSeverity>0</shortageSeverity>
+	  <productionLVL>1</productionLVL>
+	  <usage>1</usage>
+	  <shortageSeverity>0</shortageSeverity>
       <LVL1ressource>Food/Wood</LVL1ressource>
       <LVL1requierments>2/2</LVL1requierments>
       <LVL2ressource>Food/Wood</LVL2ressource>
       <LVL2requierments>10/10</LVL2requierments>
       <LVL3ressource>Wood</LVL3ressource>
       <LVL3requierments>20</LVL3requierments>
-      <amount>20</amount>
+	  <amount>20</amount>
     </Ressource>
     <Ressource>
       <name>Wood</name>
       <production>-1</production>
-      <productionLVL>1</productionLVL>
-      <usage>1</usage>
-      <shortageSeverity>1</shortageSeverity>
+	  <productionLVL>1</productionLVL>
+	  <usage>1</usage>
+	  <shortageSeverity>1</shortageSeverity>
       <LVL1ressource>Wood</LVL1ressource>
       <LVL1requierments>2</LVL1requierments>
       <LVL2ressource>Wood</LVL2ressource>
       <LVL2requierments>10</LVL2requierments>
       <LVL3ressource>Wood</LVL3ressource>
       <LVL3requierments>20</LVL3requierments>
-      <amount>10</amount>
+	  <amount>10</amount>
     </Ressource>
   </Ressources>
 </RessourceCollection>

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TownBehaviour : MonoBehaviour {
 	public TownRessources ressources;
-	public TownRessourceBuildings building = new TownRessourceBuildings (3,3,4);
+	public TownRessourceBuildings building = new TownRessourceBuildings ();
 	public TownPopulation population = new TownPopulation (500,100,2);
 	public string townname = "One";
 	// Use this for initialization
@@ -30,6 +30,7 @@ public class TownBehaviour : MonoBehaviour {
 		}
 	}
 
+	//activating/deactivating the town-overlay
 	void OnMouseDown(){
 		print ("mouse hit village");
 		if (gameObject.transform.FindChild ("Canvas").gameObject.activeSelf) {
@@ -94,8 +95,9 @@ public class TownBehaviour : MonoBehaviour {
 	}
 
 	private void produceRessources(){
-		ressources.addRessource ("Food",building.foodProduction());
-		ressources.addRessource ("Wood",building.woodProduction());
+		foreach (Ressource ressource in ressources.resource) {
+			ressources.addRessource (ressource.name, building.ressourceProduction (ressource));
+		}
 	}
 
 
@@ -133,6 +135,7 @@ public class TownBehaviour : MonoBehaviour {
 			
 			}
 			ressources.addProductionLVL (name);
+			updateGUI ();
 		}
 
 	}
