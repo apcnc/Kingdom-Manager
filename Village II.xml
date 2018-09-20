@@ -3,7 +3,7 @@
   <Ressources>
     <Ressource>
       <name>Food</name>
-      <production>-1</production>
+      <production>1</production>
       <productionLVL>1</productionLVL>
       <usage>1</usage>
       <shortageSeverity>0</shortageSeverity>
@@ -17,7 +17,7 @@
     </Ressource>
     <Ressource>
       <name>Wood</name>
-      <production>-1</production>
+      <production>1</production>
       <productionLVL>1</productionLVL>
       <usage>1</usage>
       <shortageSeverity>1</shortageSeverity>

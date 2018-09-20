@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class TownBehaviour : MonoBehaviour {
 	public TownRessources ressources;
 	public TownRessourceBuildings building = new TownRessourceBuildings ();
-	public TownPopulation population = new TownPopulation (500,100,2);
+	public TownPopulation population = new TownPopulation (5,1,0);
 	public string townname = "One";
+	public GameObject merchants;
 	// Use this for initialization
 	void Start () {
 		ressources = new TownRessources (gameObject.name + ".xml");
 		StartCoroutine (usingAndProducingRessources ());
+		StartCoroutine (merchantChecks());
 		disableAllTownCanvases ();
 	}
 	
@@ -27,6 +29,18 @@ public class TownBehaviour : MonoBehaviour {
 			useRessources ();
 			updateGUI ();
 			yield return new WaitForSeconds (5.0f);
+		}
+	}
+
+	IEnumerator merchantChecks(){
+		merchants = transform.parent.parent.FindChild ("Merchants").gameObject;
+		print (merchants);
+		while (true) {
+			for(int i = 0;i<merchants.GetComponentsInChildren<Transform>().Length;i++){
+				print (merchants.GetComponentsInChildren<Transform> ().Length);
+				checkAndSendMerchant ();
+			}
+			yield return new WaitForSeconds (2.0f);
 		}
 	}
 
@@ -138,5 +152,28 @@ public class TownBehaviour : MonoBehaviour {
 			updateGUI ();
 		}
 
+	}
+
+	private void checkAndSendMerchant (){
+		TownBehaviour[] towns = gameObject.transform.parent.GetComponentsInChildren<TownBehaviour> ();
+		;
+		foreach (Ressource ressource in ressources.resource) {
+			if (ressource.amount > population.getTotalPopulation ()) {
+				foreach (TownBehaviour town in towns) {
+					if (town.ressources.getRessource (ressource.name).amount < town.population.getTotalPopulation ()) {
+						int maxAmount =  (int)(town.population.getTotalPopulation () - town.ressources.getRessource (ressource.name).amount);
+						if (maxAmount > ressource.amount - population.getTotalPopulation ()) {
+							maxAmount = (int)(ressource.amount - population.getTotalPopulation ());
+						}
+						sendMerchant (town, maxAmount);
+					}
+					print (town.gameObject.GetComponent<TownBehaviour> ().name);
+				}
+			}
+		}
+	}
+
+	private void sendMerchant(TownBehaviour town, int maxAmount){
+		
 	}
 }
