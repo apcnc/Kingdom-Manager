@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TownRessources{
+public class Ressources{
 	public Ressource[] resource;
 	public double foodusage;
 	public double woodusage;
 	public double stoneusage;
 	public double metalusage;
-	public TownRessources(string filename){
+	public Ressources(string filename){
 		RessourceContainer ressources = RessourceContainer.Load (filename);
 		resource = ressources.ressources;
 

@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TownBehaviour : MonoBehaviour {
-	public TownRessources ressources;
+	public Ressources ressources;
 	public TownRessourceBuildings building = new TownRessourceBuildings ();
-	public TownPopulation population = new TownPopulation (5,1,0);
+	public TownPopulation population = new TownPopulation (5,1,10);
 	public string townname = "One";
 	public GameObject merchants;
 	// Use this for initialization
 	void Start () {
-		ressources = new TownRessources (gameObject.name + ".xml");
+		ressources = new Ressources (gameObject.name + ".xml");
 		StartCoroutine (usingAndProducingRessources ());
 		StartCoroutine (merchantChecks());
 		disableAllTownCanvases ();
@@ -165,7 +165,7 @@ public class TownBehaviour : MonoBehaviour {
 						if (maxAmount > ressource.amount - population.getTotalPopulation ()) {
 							maxAmount = (int)(ressource.amount - population.getTotalPopulation ());
 						}
-						sendMerchant (town, maxAmount);
+						sendMerchant (town, maxAmount, ressource.name);
 					}
 					print (town.gameObject.GetComponent<TownBehaviour> ().name);
 				}
@@ -173,7 +173,14 @@ public class TownBehaviour : MonoBehaviour {
 		}
 	}
 
-	private void sendMerchant(TownBehaviour town, int maxAmount){
-		
+	private void sendMerchant(TownBehaviour town, int maxAmount, string ressourcename){
+		MerchantBehaviour[] merchants = this.merchants.GetComponentsInChildren<MerchantBehaviour> ();
+		for (int i = 0; i < merchants.Length; i++) {
+			if(merchants[i].currentTown.Equals(townname)){
+				ressources.addRessource(ressourcename,merchants [i].setGoal (town, maxAmount, ressourcename));
+				break;
+			}
+		}
+
 	}
 }

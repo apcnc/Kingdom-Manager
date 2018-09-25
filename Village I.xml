@@ -27,7 +27,7 @@
       <LVL2requierments>10</LVL2requierments>
       <LVL3ressource>Wood</LVL3ressource>
       <LVL3requierments>20</LVL3requierments>
-      <amount>10</amount>
+      <amount>1000</amount>
     </Ressource>
   </Ressources>
 </RessourceCollection>
